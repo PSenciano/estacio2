@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usuários de Teste via REST (Vue 2)</title>
+  <!-- Vue 2 via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Painel principal / container do app -->
+  <div id="usuarios">
+    <header>
+      <div class="wrap">
+        <h1>Usuários de Teste via REST</h1>
+        <div class="toolbar">
+          <button @click="loadUsers">Recarregar</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <template v-if="loading && !users.length">
+        <p class="empty">Carregando usuários…</p>
+      </template>
+
+      <template v-else>
+        <div class="grid" v-if="users.length">
+          <article class="card" v-for="u in users" :key="u.id">
+            <div class="avatar">
+              <img :src="u.avatar" :alt="u.first_name + ' ' + u.last_name" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h2 class="name">{{ u.first_name }} {{ u.last_name }}</h2>
+              <p class="email">{{ u.email }}</p>
+              <p class="status">#{{ u.id }}</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="empty" v-else>Nenhum usuário carregado.</p>
+      </template>
+    </main>
+
+    <footer>
+      <small>Dados fornecidos por <a class="link" href="https://reqres.in/" target="_blank" rel="noreferrer noopener">REQRES</a> — exemplo didático usando <strong>Fetch API</strong> e <strong>Vue.js 2</strong>.</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
